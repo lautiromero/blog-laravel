@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     <!-- favicon -->
     <!-- styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <!-- header -->
