@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCurso;
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use Illuminate\Support\Str;
 
 class CursoController extends Controller
 {
@@ -19,29 +21,26 @@ class CursoController extends Controller
         return view('cursos.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCurso $request)
     {
-        $request->validate([
-            'name' => 'required|max:50',
-            'description' => 'required',
-            'category' => 'required'
-        ]);
 
-        $curso = new Curso();
+        /*  $curso = new Curso();
 
         $curso->name = $request->name;
         $curso->description = $request->description;
         $curso->category = $request->category;
 
-        $curso->save();
+        $curso->save(); */
+        
+        $curso = Curso::create($request->all());
 
         return redirect()->route('cursos.show', $curso->id);
     }
 
-    public function show($id)
+    public function show(Curso $curso)
     {
         //en esta funcion creamos una instancia y recolectamos los datos por id
-        $curso = Curso::find($id);
+        //$curso = Curso::find($id);
         //retornamos la vista pasando por parametro el objeto curso
         return view('cursos.show', compact('curso'));
     }
@@ -61,12 +60,21 @@ class CursoController extends Controller
             'category' => 'required'
         ]);
 
-        $curso->name = $request->name;
+/*         $curso->name = $request->name;
         $curso->description = $request->description;
         $curso->category = $request->category;
 
-        $curso->save();
+        $curso->save(); */
+
+        $curso->update($request->all());
 
         return redirect()->route('cursos.show', $curso->id);
+    }
+
+    public function destroy(Curso $curso)
+    {
+        $curso->delete();
+
+        return redirect()->route('cursos.index');
     }
 }
