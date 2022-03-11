@@ -14,9 +14,12 @@ use App\Http\Controllers\CursoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/* 
-Route::get('/', HomeController::class);
 
+Route::get('/', HomeController::class)->name('home');
+
+Route::view('nosotros', 'nosotros')->name('nosotros');
+
+/*  Cursos
 Route::get('cursos', [CursoController::class, 'index'])->name('cursos.index');
 
 Route::get('cursos/create', [CursoController::class, 'create'])->name('cursos.create');
